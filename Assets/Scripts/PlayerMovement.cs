@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Rigidbody2D rb;
-    Animator animator;
     public float walkingSpeed = 5f;
-    private Vector2 _walkingInput;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private Vector2 walkingInput;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -18,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         animator.SetFloat("Vertical", Input.GetAxisRaw("Vertical"));
         animator.SetFloat("Horizontal", Input.GetAxisRaw("Horizontal"));
-        _walkingInput.x = Input.GetAxisRaw("Horizontal") * walkingSpeed;
-        _walkingInput.y = Input.GetAxisRaw("Vertical") * walkingSpeed;
+        walkingInput.x = Input.GetAxisRaw("Horizontal") * walkingSpeed;
+        walkingInput.y = Input.GetAxisRaw("Vertical") * walkingSpeed;
     }
 
     void FixedUpdate() {
-        rb.velocity = transform.TransformDirection(_walkingInput);
+        rb.velocity = transform.TransformDirection(walkingInput);
     }
 }

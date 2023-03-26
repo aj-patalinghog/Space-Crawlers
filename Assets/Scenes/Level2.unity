@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 420103926}
   - component: {fileID: 420103925}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: Scene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,8 +451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPrefab: {fileID: 7623606523662704478, guid: 808902789747244acbb2ad8e7c46f231, type: 3}
   time: 0
-  LevelScene: {fileID: 102900000, guid: 4809c5f384f82495199ac2259198fa34, type: 3}
-  BattleScene: {fileID: 102900000, guid: 3a2e4cb2604b244c3b695ee283bb5f95, type: 3}
 --- !u!4 &420103926
 Transform:
   m_ObjectHideFlags: 0
