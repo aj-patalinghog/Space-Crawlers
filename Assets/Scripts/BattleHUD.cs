@@ -9,9 +9,9 @@ public class BattleHUD : MonoBehaviour
     public Slider healthBar;
 
     public void SetHUD(Unit unit) {
-        characterName.text = unit.unitName;
-        healthBar.maxValue = unit.maxHP;
-        healthBar.value = unit.currentHP;
+        characterName.text = unit.Base.Name;
+        healthBar.maxValue = unit.Base.MaxHP;
+        healthBar.value = unit.HP;
     }
 
     public void SetHP(int hp) {

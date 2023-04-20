@@ -4,8 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Attack3
+  - Attack1
+  - Attack2
   - Portal
   - Enemy
+  - Octocat
   layers:
   - Default
   - TransparentFX

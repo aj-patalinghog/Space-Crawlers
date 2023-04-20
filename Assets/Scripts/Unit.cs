@@ -1,22 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Unit : MonoBehaviour
 {
-    public string unitName;
-    public int attack;
-    public int maxHP;
-    public int currentHP;
+    public UnitBase _base; 
 
-    public bool TakeDamage(int damage) {
-        currentHP -= damage;
-        if(currentHP < 0) currentHP = 0;
-        return (currentHP == 0) ? true : false;
+    public int HP { get; set; }
+
+    public List<AttackMove> Moves { get; set; }
+
+    public Unit(UnitBase pBase)
+    {
+        _base = pBase;
+
+        HP = Base.MaxHP;
+
+        Moves = new List<AttackMove>();
+        foreach (var move in Base.MovesBase)
+        {
+            Moves.Add(new AttackMove(move));
+        }
+    }
+
+    public UnitBase Base {
+        get { return _base; }
+    }
+
+    public LearnableMove GetLearnableMove()
+    {
+        return Base.LearnableMoves.Where((LearnableMove move) => move.Enemy == BattleSystem.enemyDefeated).FirstOrDefault();
+    }
+
+    public bool TakeDamage(int damage){
+        HP -= damage;
+        if(HP < 0) HP = 0;
+        return (HP == 0) ? true : false;
     }
 
     public void Heal(int heal) {
-        currentHP += heal;
-        if(currentHP > maxHP) currentHP = maxHP;
+        HP += heal;
+        if(HP > Base.MaxHP) HP = Base.MaxHP;
     }
+
 }
