@@ -60,12 +60,12 @@ public class BattleSystem : MonoBehaviour
 
     public void OnClick(int index) {
         if(nextBattleState == PlayerTurn) {
+            nextBattleState = ChooseMove;
             switch(index) {
                 case 0: ChooseMove(); break;
                 case 1: Heal();       break;
                 case 3: Run();        break;
             }
-            nextBattleState = ChooseMove;
         } else if(nextBattleState == ChooseMove) {
             Attack(index, true);
         } else if(nextBattleState == ReplaceMove && index < 4) {
@@ -88,7 +88,6 @@ public class BattleSystem : MonoBehaviour
     }
 
     void OnMouseUp() {
-        Debug.Log("Click");
         if(!buttons.activeSelf) {
             nextBattleState();
         }
