@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d272920588992ca4884aeee87de4cc97, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  unitName: Player
+  spriteImage: {fileID: 763978244, guid: 3c3f099c209894292a4e6d49bf71a8a6, type: 3}
+  maxHP: 40
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: ee7500f912018be4b878331e6c2569bb, type: 2}
+    enemy: 0
+  - moveBase: {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
+    enemy: 0
+  - moveBase: {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
+    enemy: 0
+  - moveBase: {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}
+    enemy: 1
+  movesBase:
+  - {fileID: 11400000, guid: ee7500f912018be4b878331e6c2569bb, type: 2}
+  - {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
+  - {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
+  - {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}

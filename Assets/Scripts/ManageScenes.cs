@@ -9,7 +9,7 @@ public class ManageScenes : MonoBehaviour
     public GameObject canvasPrefab;
     public float time;
     private Animator animator;
-    private int newScene = -1;
+    public static int newScene = -1;
 
     public void TransitionToBattle() {
         newScene = 1;
