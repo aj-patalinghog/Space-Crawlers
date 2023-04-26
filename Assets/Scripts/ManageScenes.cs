@@ -16,8 +16,8 @@ public class ManageScenes : MonoBehaviour
         animator.Play("TransitionLeave");
     }
 
-    public void TransitionToNextLevel() {
-        newScene = SceneManager.GetActiveScene().buildIndex + 1;
+    public void TransitionToLevel() {
+        newScene = 2;
         animator.Play("TransitionLeave");
     }
 

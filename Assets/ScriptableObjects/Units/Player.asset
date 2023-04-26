@@ -20,8 +20,8 @@ MonoBehaviour:
     enemy: 0
   - moveBase: {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
     enemy: 0
-  - moveBase: {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
-    enemy: 0
+  - moveBase: {fileID: 11400000, guid: a4555f89915784ecbb470c50cc1787e4, type: 2}
+    enemy: 2
   - moveBase: {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}
     enemy: 1
   movesBase:

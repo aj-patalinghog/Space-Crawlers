@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
 
     public LearnableMove GetLearnableMove()
     {
-        return Base.LearnableMoves.Where((LearnableMove move) => move.Enemy == BattleSystem.enemyDefeated).FirstOrDefault();
+        return Base.LearnableMoves.Where((LearnableMove move) => move.Enemy == BattleSystem.enemy).FirstOrDefault();
     }
 
     public bool TakeDamage(int damage){

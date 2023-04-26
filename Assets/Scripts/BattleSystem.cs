@@ -19,18 +19,22 @@ public class BattleSystem : MonoBehaviour
     List<AttackMove> enemyMoves;
     BattleHUD playerHUD;
     BattleHUD enemyHUD;
-    public static EnemyDefeated enemyDefeated;
+    public static EnemyDefeated enemy;
     AttackMoveBase newMove;
-    EnemyDefeated enemy;
+    public List<UnitBase> enemies;
 
     void Start() {
         Cursor.lockState = CursorLockMode.None;
 
+        enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
+
         playerUnit = GameObject.Find("Player Unit").GetComponent<BattleUnit>();
         playerUnit.SetUpUnit();
         enemyUnit = GameObject.Find("Enemy Unit").GetComponent<BattleUnit>();
+        enemyUnit.unitBase = enemies[PlayerCollisions.enemy];
         enemyUnit.SetUpUnit();
 
+        newMove = playerUnit.Unit.GetLearnableMove().Base;
         playerMoves = playerUnit.Unit.Moves;
         enemyMoves = enemyUnit.Unit.Moves;
 
@@ -40,7 +44,7 @@ public class BattleSystem : MonoBehaviour
         enemyHUD.SetHUD(enemyUnit.Unit);
 
         energyText = playerHUD.transform.GetChild(2).gameObject.GetComponent<Text>();
-        UpdateEnergy(3);
+        UpdateEnergy(10);
 
         buttons.SetActive(false);
         for(int i = 0; i < buttons.transform.childCount; i++) {
@@ -48,9 +52,6 @@ public class BattleSystem : MonoBehaviour
             buttonText.Add(button[i].transform.GetChild(0).gameObject.GetComponent<Text>());
         }
         button[4].SetActive(false);
-
-        enemyDefeated = FindEnemy();
-        newMove = playerUnit.Unit.GetLearnableMove().Base;
 
         dialogueText = GameObject.Find("Dialogue Text").GetComponent<Text>();
         dialogueText.text = string.Format("An alien {0} appeared...", enemyUnit.Unit.Base.Name);
@@ -179,7 +180,7 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerWon() {
         dialogueText.text = string.Format("{0} died. You won the battle!", enemyUnit.Unit.Base.Name);
-        nextBattleState = !AlreadyLearned() && UnityEngine.Random.value >= 0.75 ? FindNewMove : EndBattle;
+        nextBattleState = !AlreadyLearned() ? FindNewMove : EndBattle;
     }
 
     void PlayerLost() {
@@ -189,7 +190,7 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle() {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
-        sceneManager.TransitionToNextLevel();
+        sceneManager.TransitionToLevel();
     }
 
     // Learnable Move Mechanics
@@ -214,13 +215,5 @@ public class BattleSystem : MonoBehaviour
             if(move.Base.Name == newMove.Name) return true;
         }
         return false;
-    }
-
-    EnemyDefeated FindEnemy() {
-        switch(PlayerCollisions.enemy){
-            case 0: enemy = EnemyDefeated.OCTOCAT;
-                    break;
-        }
-        return enemy;
     }
 }

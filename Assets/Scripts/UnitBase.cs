@@ -50,7 +50,7 @@ public enum EnemyDefeated
 {
     NONE,
     OCTOCAT,
-    KILLER
+    WORM
 }
 
 [System.Serializable]

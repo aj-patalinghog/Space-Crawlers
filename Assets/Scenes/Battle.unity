@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d548d898014d51745918d5c0a70dca9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: 21f0f00136f8b534a89bddf091b4514a, type: 2}
+  unitBase: {fileID: 11400000, guid: 21f0f00136f8b534a89bddf091b4514a, type: 2}
 --- !u!114 &356548853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1864,7 +1864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d548d898014d51745918d5c0a70dca9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: d1dc22c54c68fec4dbfc44827713bad7, type: 2}
+  unitBase: {fileID: 0}
 --- !u!114 &1081722647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3037,6 +3037,9 @@ MonoBehaviour:
   buttons: {fileID: 1545684409}
   button: []
   buttonText: []
+  enemies:
+  - {fileID: 11400000, guid: d1dc22c54c68fec4dbfc44827713bad7, type: 2}
+  - {fileID: 11400000, guid: a9493b5715e094392a5f28201b071a3c, type: 2}
 --- !u!4 &1844299196
 Transform:
   m_ObjectHideFlags: 0
