@@ -50,6 +50,7 @@ public class BattleSystem : MonoBehaviour
         //Spawn player and enemy on platforms
         SpawnUnits();
 
+<<<<<<< Updated upstream
         //Setup HUD
         SetUpHUD();
         
@@ -58,6 +59,36 @@ public class BattleSystem : MonoBehaviour
         
         //Setup player moveset
         SetUpMoveset(playerUnit.Unit.Moves);
+=======
+        playerUnit = GameObject.Find("Player Unit").GetComponent<BattleUnit>();
+        playerUnit.SetUpUnit();
+        enemyUnit = GameObject.Find("Enemy Unit").GetComponent<BattleUnit>();
+        enemyUnit.unitBase = enemies[PlayerCollisions.enemy];
+        enemyUnit.SetUpUnit();
+
+        //Choose a random move from enemy unit
+        newMove = playerUnit.Unit.GetLearnableMove(playerUnit.Unit.Base.LearnableMoves);
+        playerMoves = playerUnit.Unit.Moves;
+        enemyMoves = enemyUnit.Unit.Moves;
+
+        playerHUD = GameObject.Find("Player HUD").GetComponent<BattleHUD>();
+        playerHUD.SetHUD(playerUnit.Unit);
+        enemyHUD = GameObject.Find("Enemy HUD").GetComponent<BattleHUD>();
+        enemyHUD.SetHUD(enemyUnit.Unit);
+
+        energyText = playerHUD.transform.GetChild(2).gameObject.GetComponent<Text>();
+        UpdateEnergy(10);
+
+        buttons.SetActive(false);
+        for(int i = 0; i < buttons.transform.childCount; i++) {
+            button.Add(buttons.transform.GetChild(i).gameObject);
+            buttonText.Add(button[i].transform.GetChild(0).gameObject.GetComponent<Text>());
+        }
+        button[4].SetActive(false);
+
+        dialogueText = GameObject.Find("Dialogue Text").GetComponent<Text>();
+        dialogueText.text = string.Format("An alien {0} appeared...", enemyUnit.Unit.Base.Name);
+>>>>>>> Stashed changes
 
         nextBattleState = PlayerTurn;
     }
@@ -101,6 +132,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     //Clicking attack buttons
     public void OnClick(int index){
         isPlayer = true;
@@ -108,6 +140,17 @@ public class BattleSystem : MonoBehaviour
         moveSelector.SetActive(false);
         dialogueText.enabled = true;
         Attack(playerUnit.Unit.Moves, index, isPlayer);
+=======
+    public void OnPointer(int index) {
+        if(nextBattleState == ChooseMove) {
+            dialogueText.text = index == -1 ? "" : string.Format("Damage: {0}\nEnergy Cost: {1}",
+                playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost);
+        } else if(nextBattleState == ReplaceMove) {
+            dialogueText.text = index == -1 ? dialogueText.text = string.Format("Click a move to\nreplace with\n{0}", newMove.Name) : index <4 ? 
+                string.Format("Damage: {0}\nEnergy Cost: {1}", playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost) : 
+                string.Format("Damage: {0}\nEnergy Cost: {1}", newMove.Damage, newMove.EnergyCost);
+        }
+>>>>>>> Stashed changes
     }
 
     
@@ -245,4 +288,30 @@ public class BattleSystem : MonoBehaviour
         sceneManager.TransitionToNextLevel();
     }
 
+<<<<<<< Updated upstream
+=======
+    // Learnable Move Mechanics
+
+    void FindNewMove() {
+        dialogueText.text = string.Format("After winning the battle, your suit has found one of {0}'s abilites to copy: {1}.", enemyUnit.Unit.Base.Name, newMove.Name);
+        nextBattleState = ReplaceMove;
+    }
+
+    void ReplaceMove() {
+        dialogueText.text = string.Format("Click a move to\nreplace with\n{0}", newMove.Name);
+        buttons.SetActive(true);
+        button[4].SetActive(true);
+        for(int i = 0; i < 4; i++) {
+            buttonText[i].text = playerMoves[i].Base.Name;
+        }
+        buttonText[4].text = newMove.Name;
+    }
+
+    bool AlreadyLearned() {
+        foreach(AttackMove move in playerMoves) {
+            if(move.Base.Name == newMove.Name) return true;
+        }
+        return false;
+    }
+>>>>>>> Stashed changes
 }

@@ -9,12 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d272920588992ca4884aeee87de4cc97, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: e4efd29095d36214babcb6ee8bb94da9, type: 3}
+  m_Name: Grapple
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream:Assets/ScriptableObjects/Units/Test.asset
   name: Test
   spriteImage: {fileID: 0}
   maxHP: 30
   learnableMoves: []
   movesBase: []
   traits: 
+=======
+  attackName: Grapple
+  damage: 4
+  energyCost: 2
+>>>>>>> Stashed changes:Assets/ScriptableObjects/Moves/OctoCat/Grapple.asset

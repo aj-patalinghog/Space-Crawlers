@@ -183,7 +183,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 11d90b6f39f164efea1dc880d2ec5213, type: 3}
+<<<<<<< Updated upstream
     m_FontSize: 20
+=======
+    m_FontSize: 25
+>>>>>>> Stashed changes
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0

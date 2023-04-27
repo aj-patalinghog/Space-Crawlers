@@ -28,9 +28,21 @@ public class Unit : MonoBehaviour
         get { return _base; }
     }
 
-    public LearnableMove GetLearnableMove()
+    public AttackMoveBase GetLearnableMove(List<LearnableMove> playerLearnableMoves)
     {
+<<<<<<< Updated upstream
         return Base.LearnableMoves.Where((LearnableMove move) => move.Enemy == BattleSystem.enemyDefeated).FirstOrDefault();
+=======
+        List<AttackMoveBase> newMoves;
+        newMoves = new List<AttackMoveBase>();
+        foreach (var move in playerLearnableMoves){
+            if(move.Enemy == BattleSystem.enemy)
+                newMoves.Add(move.Base);
+        }
+        int maxLearnableMoves = newMoves.Count;
+        AttackMoveBase newMove = newMoves[(UnityEngine.Random.Range(0,maxLearnableMoves))];
+        return newMove;
+>>>>>>> Stashed changes
     }
 
     public bool TakeDamage(int damage){
