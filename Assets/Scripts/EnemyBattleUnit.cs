@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleUnit : MonoBehaviour
+public class EnemyBattleUnit : MonoBehaviour
 {
     public UnitBase unitBase;
     private Animator animator;
 
     public Unit Unit { get; set; }
 
+    void Start(){
+        animator = GetComponent<Animator>();
+    }
 
-    public void SetUpUnit()
+    public void SetUpEnemyUnit()
     {
         Unit = new Unit(unitBase);
 

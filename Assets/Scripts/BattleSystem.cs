@@ -13,8 +13,8 @@ public class BattleSystem : MonoBehaviour
     public GameObject buttons;
     public List<GameObject> button;
     public List<Text> buttonText;
-    BattleUnit playerUnit;
-    BattleUnit enemyUnit;
+    PlayerBattleUnit playerUnit;
+    EnemyBattleUnit enemyUnit;
     List<AttackMove> playerMoves;
     List<AttackMove> enemyMoves;
     BattleHUD playerHUD;
@@ -28,11 +28,11 @@ public class BattleSystem : MonoBehaviour
 
         enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
 
-        playerUnit = GameObject.Find("Player Unit").GetComponent<BattleUnit>();
-        playerUnit.SetUpUnit();
-        enemyUnit = GameObject.Find("Enemy Unit").GetComponent<BattleUnit>();
+        playerUnit = GameObject.Find("Player Unit").GetComponent<PlayerBattleUnit>();
+        playerUnit.SetUpPlayerUnit();
+        enemyUnit = GameObject.Find("Enemy Unit").GetComponent<EnemyBattleUnit>();
         enemyUnit.unitBase = enemies[PlayerCollisions.enemy];
-        enemyUnit.SetUpUnit();
+        enemyUnit.SetUpEnemyUnit();
 
         newMove = playerUnit.Unit.GetLearnableMove(playerUnit.Unit.Base.LearnableMoves);
         playerMoves = playerUnit.Unit.Moves;
