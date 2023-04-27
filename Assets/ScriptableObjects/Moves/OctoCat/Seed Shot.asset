@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Seed Shot
   m_EditorClassIdentifier: 
   attackName: Seed Shot
-  damage: 5
-  energyCost: 2
+  damage: 6
+  energyCost: 3

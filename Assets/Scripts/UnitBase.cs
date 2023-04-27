@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UnitBase : ScriptableObject
 {
-    [SerializeField] string name;
+    [SerializeField] string unitName;
 
     [SerializeField] Sprite spriteImage;
 
@@ -20,7 +20,7 @@ public class UnitBase : ScriptableObject
     private void OnEnable() => hideFlags = HideFlags.DontUnloadUnusedAsset;
 
     public string Name {
-        get { return name; }
+        get { return unitName; }
     }
 
     public int MaxHP {
@@ -52,7 +52,7 @@ public enum EnemyDefeated
 {
     NONE,
     OCTOCAT,
-    KILLER
+    WORM
 }
 
 [System.Serializable]

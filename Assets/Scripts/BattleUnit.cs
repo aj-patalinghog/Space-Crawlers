@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class BattleUnit : MonoBehaviour
 {
-    [SerializeField] UnitBase _base;
+    public UnitBase unitBase;
 
     public Unit Unit { get; set; }
 
     public void SetUpUnit()
     {
-        Unit = new Unit(_base);
+        Unit = new Unit(unitBase);
 
+        GetComponent<Image>().enabled = true;
         GetComponent<Image>().sprite = Unit.Base.SpriteImage;
     }
 }

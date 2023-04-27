@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class AttackMoveBase : ScriptableObject
 {
-    [SerializeField] string name;
+    [SerializeField] string attackName;
 
     [SerializeField] int damage;
     [SerializeField] int energyCost;
 
     public string Name {
-        get { return name; }
+        get { return attackName; }
     }
 
     public int Damage {

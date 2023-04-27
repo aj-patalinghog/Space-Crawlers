@@ -7,66 +7,33 @@ using System;
 public class BattleSystem : MonoBehaviour
 {
     public Action nextBattleState;
-    RectTransform dialogueBox;
-
     Text dialogueText;
-    Text actionText;
-    Text moveText;
-    //Energy cost and damage text UI
     Text energyText;
-    Text damageText;
-
-    public Text[] attackText;
-    public Button[] attackButtons;
-    [SerializeField] Button[] moveButtons;
-
-    //UI elements
-    GameObject moveSelector;
-    GameObject actionSelector;
-    GameObject moveDetails;
-    [SerializeField] MoveSelectionUI moveSelectionUI;
-
-    [SerializeField] BattleUnit playerUnit;
-    [SerializeField] BattleUnit enemyUnit;
-
-    [SerializeField] BattleHUD playerHUD;
-    [SerializeField] BattleHUD enemyHUD;
-
-    int attack;
-    int enemyChoice;
-
-    EnemyDefeated enemy;
-    public static EnemyDefeated enemyDefeated;
+    public int energy;
+    public GameObject buttons;
+    public List<GameObject> button;
+    public List<Text> buttonText;
+    BattleUnit playerUnit;
+    BattleUnit enemyUnit;
+    List<AttackMove> playerMoves;
+    List<AttackMove> enemyMoves;
+    BattleHUD playerHUD;
+    BattleHUD enemyHUD;
+    public static EnemyDefeated enemy;
     AttackMoveBase newMove;
-
-    string move;
-
-    bool isDead;
-    bool isPlayer = true;
+    public List<UnitBase> enemies;
 
     void Start() {
         Cursor.lockState = CursorLockMode.None;
 
-        //Spawn player and enemy on platforms
-        SpawnUnits();
+        enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
 
-<<<<<<< Updated upstream
-        //Setup HUD
-        SetUpHUD();
-        
-        //Set up player fight screen menu
-        SetUpMenu();
-        
-        //Setup player moveset
-        SetUpMoveset(playerUnit.Unit.Moves);
-=======
         playerUnit = GameObject.Find("Player Unit").GetComponent<BattleUnit>();
         playerUnit.SetUpUnit();
         enemyUnit = GameObject.Find("Enemy Unit").GetComponent<BattleUnit>();
         enemyUnit.unitBase = enemies[PlayerCollisions.enemy];
         enemyUnit.SetUpUnit();
 
-        //Choose a random move from enemy unit
         newMove = playerUnit.Unit.GetLearnableMove(playerUnit.Unit.Base.LearnableMoves);
         playerMoves = playerUnit.Unit.Moves;
         enemyMoves = enemyUnit.Unit.Moves;
@@ -88,59 +55,28 @@ public class BattleSystem : MonoBehaviour
 
         dialogueText = GameObject.Find("Dialogue Text").GetComponent<Text>();
         dialogueText.text = string.Format("An alien {0} appeared...", enemyUnit.Unit.Base.Name);
->>>>>>> Stashed changes
 
         nextBattleState = PlayerTurn;
     }
 
-    void SpawnUnits(){
-        playerUnit.SetUpUnit();
-        enemyUnit.SetUpUnit();
-    }
-
-    void SetUpHUD(){
-        playerHUD.SetHUD(playerUnit.Unit);
-        enemyHUD.SetHUD(enemyUnit.Unit);
-    }
-
-    void SetUpMenu(){
-        actionSelector = GameObject.Find("Action Buttons");
-        actionSelector.SetActive(false);
-
-        moveSelector = GameObject.Find("Move Selector");
-        moveSelector.SetActive(false);
-
-        moveDetails = GameObject.Find("Move Details");
-        moveDetails.SetActive(false);
-
-        dialogueText = GameObject.Find("Dialogue Text").GetComponent<Text>();
-        dialogueText.text = string.Format("An alien {0} appeared...", enemyUnit.Unit.Base.Name);
-
-    }
-
-    void SetUpMoveset(List<AttackMove> moves){
-        //Create index for each attack button
-        for (int i = 0; i < attackButtons.Length; i++){
-            Button button = attackButtons[i];
-            var index = i;
-            button.onClick.AddListener(() => OnClick(index));
-        }
-        
-        //Create variable to hold UI Text elements for attack buttons
-        for(int i = 0; i < 3; i++){
-            attackText[i].text = moves[i].Base.Name;
+    public void OnClick(int index) {
+        if(nextBattleState == PlayerTurn) {
+            nextBattleState = ChooseMove;
+            switch(index) {
+                case 0: ChooseMove(); break;
+                case 1: Heal();       break;
+                case 3: Run();        break;
+            }
+        } else if(nextBattleState == ChooseMove) {
+            Attack(index, true);
+        } else if(nextBattleState == ReplaceMove && index < 4) {
+            buttons.SetActive(false);
+            dialogueText.text = string.Format("You replaced {0} with {1}!", playerMoves[index].Base.Name, newMove.Name);
+            playerUnit.Unit.Base.AddMove(newMove, index);
+            nextBattleState = EndBattle;
         }
     }
 
-<<<<<<< Updated upstream
-    //Clicking attack buttons
-    public void OnClick(int index){
-        isPlayer = true;
-        actionSelector.SetActive(false);
-        moveSelector.SetActive(false);
-        dialogueText.enabled = true;
-        Attack(playerUnit.Unit.Moves, index, isPlayer);
-=======
     public void OnPointer(int index) {
         if(nextBattleState == ChooseMove) {
             dialogueText.text = index == -1 ? "" : string.Format("Damage: {0}\nEnergy Cost: {1}",
@@ -150,69 +86,74 @@ public class BattleSystem : MonoBehaviour
                 string.Format("Damage: {0}\nEnergy Cost: {1}", playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost) : 
                 string.Format("Damage: {0}\nEnergy Cost: {1}", newMove.Damage, newMove.EnergyCost);
         }
->>>>>>> Stashed changes
     }
 
-    
+    void OnMouseUp() {
+        if(!buttons.activeSelf) {
+            nextBattleState();
+        }
+    }
 
-    void Attack(List<AttackMove> moves, int index, bool isPlayer){
-        attack = moves[index].Base.Damage;
-        move = moves[index].Base.Name;
+    void UpdateEnergy(int newEnergy) {
+        energy = newEnergy;
+        energyText.text = Convert.ToString(newEnergy);
+    }
+
+    // Battle Mechanics
+
+    void PlayerTurn() {
+        buttons.SetActive(true);
+        button[2].SetActive(false);
+
+        for(int i = 0; i < 4; i++) {
+            button[i].GetComponent<Button>().interactable = true;
+        }
+
+        buttonText[0].text = "Attack";
+        buttonText[1].text = "Heal";
+        buttonText[3].text = "Run";
+
+        if(energy < 10) UpdateEnergy(energy + 1);
+
+        dialogueText.text = "Choose an action: ";
+    }
+
+    void ChooseMove() {
+        button[2].SetActive(true);
+
+        for(int i = 0; i < 4; i++) {
+            buttonText[i].text = playerMoves[i].Base.Name;
+            button[i].GetComponent<Button>().interactable = playerMoves[i].Base.EnergyCost > energy ? false : true;
+        }
+    }
+
+    void Attack(int index, bool isPlayer) {
+        buttons.SetActive(false);
         if(isPlayer){
-            isDead = enemyUnit.Unit.TakeDamage(attack);
+            int attack = playerMoves[index].Base.Damage;
+            string move = playerMoves[index].Base.Name;
+
+            UpdateEnergy(energy - playerMoves[index].Base.EnergyCost);
+
+            bool isDead = enemyUnit.Unit.TakeDamage(attack);
             enemyHUD.SetHP(enemyUnit.Unit.HP);
 
             dialogueText.text = string.Format("You used {0} and dealt {1} damage to {2}!", move, attack, enemyUnit.Unit.Base.Name);
             nextBattleState = (isDead) ? PlayerWon : EnemyTurn;
-        }
-        else{
-            isDead = playerUnit.Unit.TakeDamage(attack);
+        } else{
+            int attack = enemyMoves[index].Base.Damage;
+            string move = enemyMoves[index].Base.Name;
+
+            bool isDead = playerUnit.Unit.TakeDamage(attack);
             playerHUD.SetHP(playerUnit.Unit.HP);
 
             dialogueText.text = string.Format("{0} used {1}. You take {2} damage!", enemyUnit.Unit.Base.Name, move, attack);
             nextBattleState = (isDead) ? PlayerLost : PlayerTurn;
         }
     }
-    //On mouse click move dialgoue forward
-    void OnMouseDown() {
-        if(!actionSelector.activeSelf || !moveSelector.activeSelf) {
-            nextBattleState();
-        }
-    }
 
-    void PlayerTurn() {
-        actionSelector.SetActive(true);
-
-        dialogueText.text = "Choose an action: ";
-    }
-
-    void Fight() {
-        actionSelector.SetActive(false);
-        moveSelector.SetActive(true);
-        dialogueText.enabled = false;
-    }
-
-    void EnemyTurn() {
-        //Randomly Choose enemy move
-        enemyChoice = UnityEngine.Random.Range(0,3);
-        isPlayer = false;
-        switch(enemyChoice){
-            case 0:  Attack(enemyUnit.Unit.Moves, 0, isPlayer);
-                break;
-            case 1: Attack(enemyUnit.Unit.Moves, 1, isPlayer);
-                break;
-            case 2: Attack(enemyUnit.Unit.Moves, 2, isPlayer);
-                break;    
-            case 3: Attack(enemyUnit.Unit.Moves, 3, isPlayer);
-                break;    
-        }
-    }
-
-    public void Heal() {
-        actionSelector.SetActive(false);
-        moveSelector.SetActive(false);
-        moveDetails.SetActive(false);
-        dialogueText.enabled = true;
+    void Heal() {
+        buttons.SetActive(false);
 
         playerUnit.Unit.Heal(playerUnit.Unit.Base.MaxHP/5);
         playerHUD.SetHP(playerUnit.Unit.HP);
@@ -221,8 +162,8 @@ public class BattleSystem : MonoBehaviour
         nextBattleState = EnemyTurn;
     }
 
-    public void Run() {
-        actionSelector.SetActive(false);
+    void Run() {
+        buttons.SetActive(false);
 
         if(UnityEngine.Random.value >= 0.5) {
             dialogueText.text = string.Format("You got away safely!");
@@ -233,49 +174,13 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    void EnemyTurn() {
+        Attack(UnityEngine.Random.Range(0, 3), false);
+    }
+
     void PlayerWon() {
         dialogueText.text = string.Format("{0} died. You won the battle!", enemyUnit.Unit.Base.Name);
-        nextBattleState = FindNewMove;
-    }
-
-    void FindNewMove(){
-        //Check what enemy was defeated to find which moves can be learned
-        enemyDefeated = FindEnemy();
-        var learnableMove = playerUnit.Unit.GetLearnableMove();
-        newMove = learnableMove.Base;
-        dialogueText.text = string.Format("After winning the battle, your suit has found one of {0}'s abilites to copy: {1}.", enemyUnit.Unit.Base.Name, newMove.Name);
-        nextBattleState = AddNewMove;
-    }
-
-    void AddNewMove(){
-        dialogueText.text = string.Format("You can replace one of your current abilities with the new ability.");
-        moveSelectionUI.gameObject.SetActive(true);
-        moveSelectionUI.SetMoveData(playerUnit.Unit.Base.MovesBase, newMove); 
-        SetUpMoveButtons(); 
-    }
-
-    void SetUpMoveButtons(){
-        for (int i = 0; i < 5; i++){
-            Button movebutton = moveButtons[i];
-            var moveIndex = i;
-            movebutton.onClick.AddListener(() => OnClickMove(moveIndex));
-        }
-    }
-
-    void OnClickMove(int index){
-        if (index < 4){
-            playerUnit.Unit.Base.AddMove(newMove, index);
-            nextBattleState = EndBattle;
-        }
-    }
-
-
-    public EnemyDefeated FindEnemy(){
-        switch(PlayerCollisions.enemy){
-            case 0: enemy = EnemyDefeated.OCTOCAT;
-                    break;
-        }
-        return enemy;
+        nextBattleState = !AlreadyLearned() ? FindNewMove : EndBattle;
     }
 
     void PlayerLost() {
@@ -285,11 +190,9 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle() {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
-        sceneManager.TransitionToNextLevel();
+        sceneManager.TransitionToLevel();
     }
 
-<<<<<<< Updated upstream
-=======
     // Learnable Move Mechanics
 
     void FindNewMove() {
@@ -313,5 +216,4 @@ public class BattleSystem : MonoBehaviour
         }
         return false;
     }
->>>>>>> Stashed changes
 }

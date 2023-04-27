@@ -12,24 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d272920588992ca4884aeee87de4cc97, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  name: Player
+  unitName: Player
   spriteImage: {fileID: 763978244, guid: 3c3f099c209894292a4e6d49bf71a8a6, type: 3}
   maxHP: 40
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: ee7500f912018be4b878331e6c2569bb, type: 2}
-    enemy: 0
-  - moveBase: {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
-    enemy: 0
-  - moveBase: {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
-    enemy: 0
-  - moveBase: {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}
-    enemy: 1
   - moveBase: {fileID: 11400000, guid: 6bbdb844d61998645ba3ba2dd050b9e8, type: 2}
-    enemy: 1
-  - moveBase: {fileID: 11400000, guid: e3e30aeaa90238d4eb561cb554543021, type: 2}
     enemy: 1
   - moveBase: {fileID: 11400000, guid: 7b6e536316a719c469ba1e23a4471e49, type: 2}
     enemy: 1
+  - moveBase: {fileID: 11400000, guid: e3e30aeaa90238d4eb561cb554543021, type: 2}
+    enemy: 1
+  - moveBase: {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}
+    enemy: 1
+  - moveBase: {fileID: 11400000, guid: a4555f89915784ecbb470c50cc1787e4, type: 2}
+    enemy: 2
   movesBase:
   - {fileID: 11400000, guid: ee7500f912018be4b878331e6c2569bb, type: 2}
   - {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}

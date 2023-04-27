@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4efd29095d36214babcb6ee8bb94da9, type: 3}
   m_Name: Punch
   m_EditorClassIdentifier: 
-  name: Punch
+  attackName: Punch
   damage: 3
   energyCost: 1

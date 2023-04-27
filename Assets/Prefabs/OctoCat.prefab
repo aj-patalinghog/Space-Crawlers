@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2078229070156453805}
   m_Layer: 5
   m_Name: OctoCat
-  m_TagString: OctoCat
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,5 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: OctoCat
+  attack: 6
   maxHP: 20
   currentHP: 20
