@@ -6,32 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class ManageScenes : MonoBehaviour
 {
-    public GameObject canvasPrefab;
-    public float time;
-    private Animator animator;
-    public static int newScene = -1;
-
     public void TransitionToBattle() {
-        newScene = 1;
-        animator.Play("TransitionLeave");
+        StartCoroutine(LoadScene("Battle"));
+    }
+
+    IEnumerator LoadScene(string scene) {
+        SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
+        yield return new WaitForSeconds(1f);
+        FindObjectOfType<AudioListener>().enabled = false;
+        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        yield return new WaitForSeconds(3f);
+        SceneManager.UnloadSceneAsync("Transition");
     }
 
     public void TransitionToLevel() {
-        newScene = 2;
-        animator.Play("TransitionLeave");
+        StartCoroutine(UnloadScene("Battle"));
     }
 
-    void Start() {
-        Instantiate(canvasPrefab);
-        animator = FindObjectOfType<Canvas>().GetComponent<Animator>();
-    }
-
-    void Update(){
-        if(newScene == -1) return;
-        time = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("TransitionLeave") && time > 1f) {
-            SceneManager.LoadScene(newScene, LoadSceneMode.Single);
-            newScene = -1;
-        }
+    IEnumerator UnloadScene(string scene) {
+        SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
+        yield return new WaitForSeconds(1f);
+        SceneManager.UnloadSceneAsync(scene);
+        FindObjectOfType<AudioListener>().enabled = true;
+        yield return new WaitForSeconds(3f);
+        SceneManager.UnloadSceneAsync("Transition");
     }
 }
