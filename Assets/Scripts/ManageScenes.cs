@@ -6,11 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ManageScenes : MonoBehaviour
 {
-    public void TransitionToBattle() {
-        StartCoroutine(LoadScene("Battle"));
-    }
-
-    IEnumerator LoadScene(string scene) {
+    public IEnumerator LoadScene(string scene) {
         SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
         yield return new WaitForSeconds(1f);
         FindObjectOfType<AudioListener>().enabled = false;
@@ -19,16 +15,29 @@ public class ManageScenes : MonoBehaviour
         SceneManager.UnloadSceneAsync("Transition");
     }
 
-    public void TransitionToLevel() {
-        StartCoroutine(UnloadScene("Battle"));
-    }
-
-    IEnumerator UnloadScene(string scene) {
+    public IEnumerator UnloadScene(string scene) {
         SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
         yield return new WaitForSeconds(1f);
         SceneManager.UnloadSceneAsync(scene);
         FindObjectOfType<AudioListener>().enabled = true;
         yield return new WaitForSeconds(3f);
         SceneManager.UnloadSceneAsync("Transition");
+    }
+
+    public void ExitMenu() {
+        StartCoroutine(ReplaceScene());
+    }
+
+    public IEnumerator ReplaceScene() {
+        Canvas menu = FindObjectOfType<Canvas>();
+        AudioListener audio = FindObjectOfType<AudioListener>();
+        SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
+        yield return new WaitForSeconds(1f);
+        audio.enabled = false;
+        menu.enabled = false;
+        SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+        yield return new WaitForSeconds(3f);
+        SceneManager.UnloadSceneAsync("Transition");
+        SceneManager.UnloadSceneAsync("MainMenu");
     }
 }
