@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 32
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -14,18 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Worm
   spriteImage: {fileID: -1306250937, guid: f3638e9f1337c4b3b8297543bddbddf4, type: 3}
-  maxHP: 20
-  learnableMoves:
-  - moveBase: {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
-    enemy: 0
-  - moveBase: {fileID: 11400000, guid: ee7500f912018be4b878331e6c2569bb, type: 2}
-    enemy: 0
-  - moveBase: {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
-    enemy: 0
-  - moveBase: {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}
-    enemy: 0
+  maxHP: 25
+  learnableMoves: []
   movesBase:
-  - {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
-  - {fileID: 11400000, guid: a4555f89915784ecbb470c50cc1787e4, type: 2}
-  - {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
   - {fileID: 11400000, guid: 2a2629fc8e9f9414e996e6ed0af0f418, type: 2}
+  - {fileID: 11400000, guid: a4555f89915784ecbb470c50cc1787e4, type: 2}
+  - {fileID: 11400000, guid: 88a5c9c09690848a3b56a11bdb0cd377, type: 2}
+  - {fileID: 11400000, guid: 1a461533989a248cb8adbd97a50a8a50, type: 2}

@@ -7,16 +7,21 @@ public class PlayerBattleUnit : MonoBehaviour
 {
     public UnitBase unitBase;
     private Animator animator;
-
-    private float timer = 0f;
-    private float delay = 1f;
-
+    
     private bool isDealDamage = false;
 
     public Unit Unit { get; set; }
 
     void Start(){
         animator = GetComponent<Animator>();
+    }
+
+    public void PlayerDealDamage(){
+        animator.SetTrigger("Attack");
+    }
+
+    public void PlayerTakeDamage(){
+        animator.SetTrigger("TakeDamage");
     }
     
     public void SetUpPlayerUnit()

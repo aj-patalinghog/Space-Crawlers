@@ -31,6 +31,7 @@ public class BattleSystem : MonoBehaviour
         playerUnit = GameObject.Find("Player Unit").GetComponent<PlayerBattleUnit>();
         playerUnit.SetUpPlayerUnit();
         enemyUnit = GameObject.Find("Enemy Unit").GetComponent<EnemyBattleUnit>();
+        enemyUnit.SelectAnimation(enemy);
         enemyUnit.unitBase = enemies[PlayerCollisions.enemy];
         enemyUnit.SetUpEnemyUnit();
 
@@ -140,6 +141,12 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = string.Format("You used {0} and dealt {1} damage to {2}!", move, attack, enemyUnit.Unit.Base.Name);
             nextBattleState = (isDead) ? PlayerWon : EnemyTurn;
+            if(nextBattleState == PlayerWon){
+                enemyUnit.EnemyDead(enemy);
+            } 
+            playerUnit.PlayerDealDamage();
+            enemyUnit.EnemyTakeDamage(enemy);
+            if(nextBattleState == PlayerWon) enemyHUD.gameObject.SetActive(false);
         } else{
             int attack = enemyMoves[index].Base.Damage;
             string move = enemyMoves[index].Base.Name;
@@ -149,6 +156,8 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = string.Format("{0} used {1}. You take {2} damage!", enemyUnit.Unit.Base.Name, move, attack);
             nextBattleState = (isDead) ? PlayerLost : PlayerTurn;
+            enemyUnit.EnemyDealDamage(enemy);
+            playerUnit.PlayerTakeDamage();
         }
     }
 
