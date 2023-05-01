@@ -7,6 +7,7 @@ public class EnemyBattleUnit : MonoBehaviour
 {
     public UnitBase unitBase;
     private Animator animator;
+    public GameObject planet;
 
     public Unit Unit { get; set; }
 
@@ -52,12 +53,22 @@ public class EnemyBattleUnit : MonoBehaviour
                                      break;
             case EnemyDefeated.CORAL: animator.SetTrigger("CoralAttack");
                                      break;
-            case EnemyDefeated.DRAGON: animator.SetTrigger("DragonAttack");
+            case EnemyDefeated.DRAGON: if(BattleSystem.isPlanetAttack){
+                                        animator.SetTrigger("DragonPlanetAttack");
+                                        planet.SetActive(true);
+                                        BattleSystem.isPlanetAttack = false;
+                                       } else if(BattleSystem.isEarthAttack){
+                                        animator.SetTrigger("DragonEarthAttack");
+                                        BattleSystem.isEarthAttack = false;
+                                       } else{
+                                        animator.SetTrigger("DragonAttack");
+                                       }
                                      break;                                                 
         }
     }
 
     public void EnemyTakeDamage(EnemyDefeated enemy){
+        planet.SetActive(false);
         switch(enemy){
             case EnemyDefeated.OCTOCAT: animator.SetTrigger("OctoDamage");
                                         break;

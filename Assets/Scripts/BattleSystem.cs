@@ -23,6 +23,8 @@ public class BattleSystem : MonoBehaviour
     public static EnemyDefeated enemy;
     AttackMoveBase newMove;
     public List<UnitBase> enemies;
+    public static bool isPlanetAttack;
+    public static bool isEarthAttack;
 
     void Start() {
         Cursor.lockState = CursorLockMode.None;
@@ -169,6 +171,8 @@ public class BattleSystem : MonoBehaviour
         } else{
             int attack = enemyMoves[index].Base.Damage;
             string move = enemyMoves[index].Base.Name;
+            if(enemyMoves[index].Base.Name == "Planet Throw") isPlanetAttack = true;
+            if(enemyMoves[index].Base.Name == "Earthquake") isEarthAttack = true;
 
             bool isDead = playerUnit.Unit.TakeDamage(attack);
             playerHUD.SetHP(playerUnit.Unit.HP);
