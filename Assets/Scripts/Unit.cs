@@ -41,6 +41,17 @@ public class Unit : MonoBehaviour
         return newMove;
     }
 
+    public List<AttackMoveBase> GetBaseMove(List<LearnableMove> playerBaseMoves)
+    {
+        List<AttackMoveBase> baseMoves;
+        baseMoves = new List<AttackMoveBase>();
+        foreach (var move in playerBaseMoves){
+            if(move.Enemy == EnemyDefeated.NONE)
+                baseMoves.Add(move.Base);
+        }
+        return baseMoves;
+    }
+
     public bool TakeDamage(int damage){
         HP -= damage;
         if(HP < 0) HP = 0;

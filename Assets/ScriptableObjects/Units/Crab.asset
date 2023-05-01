@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d272920588992ca4884aeee87de4cc97, type: 3}
+  m_Name: Crab
+  m_EditorClassIdentifier: 
+  unitName: Crab
+  spriteImage: {fileID: -1661298898, guid: 403539a652983f84f822e62c3160d400, type: 3}
+  maxHP: 30
+  energy: 0
+  learnableMoves: []
+  movesBase:
+  - {fileID: 11400000, guid: a0129a5d5cf9d8a408f86f91f49fe608, type: 2}
+  - {fileID: 11400000, guid: a56cb3f087d43124ba0c3011d2a13a9e, type: 2}
+  - {fileID: 11400000, guid: d3a001f09382497469047c03a7dc0e06, type: 2}
+  - {fileID: 11400000, guid: 9a5ce641ce9212a4bb2f3ac5bf56bf0d, type: 2}

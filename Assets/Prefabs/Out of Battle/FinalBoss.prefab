@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7333849683656557292}
   m_Layer: 0
   m_Name: FinalBoss
-  m_TagString: Finalboss
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

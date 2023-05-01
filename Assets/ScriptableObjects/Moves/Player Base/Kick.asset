@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Kick
   m_EditorClassIdentifier: 
   attackName: Kick
-  damage: 5
+  damage: 4
   energyCost: 2

@@ -17,6 +17,7 @@ public class BattleSystem : MonoBehaviour
     EnemyBattleUnit enemyUnit;
     List<AttackMove> playerMoves;
     List<AttackMove> enemyMoves;
+    List<AttackMoveBase> playerBaseMoves;
     BattleHUD playerHUD;
     BattleHUD enemyHUD;
     public static EnemyDefeated enemy;
@@ -36,6 +37,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.SetUpEnemyUnit();
 
         newMove = playerUnit.Unit.GetLearnableMove(playerUnit.Unit.Base.LearnableMoves);
+        playerBaseMoves = playerUnit.Unit.GetBaseMove(playerUnit.Unit.Base.LearnableMoves);
         playerMoves = playerUnit.Unit.Moves;
         enemyMoves = enemyUnit.Unit.Moves;
 
@@ -75,13 +77,21 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = string.Format("You replaced {0} with {1}!", playerMoves[index].Base.Name, newMove.Name);
             playerUnit.Unit.Base.AddMove(newMove, index);
             nextBattleState = EndBattle;
+        } else if(nextBattleState == ReplaceMove && index == 4) {
+            buttons.SetActive(false);
+            dialogueText.text = string.Format("You choose to not take the new ability: {0}", newMove.Name);
+            nextBattleState = EndBattle;
         }
     }
 
     public void OnPointer(int index) {
         if(nextBattleState == ChooseMove) {
-            dialogueText.text = index == -1 ? "" : string.Format("Damage: {0}\nEnergy Cost: {1}",
-                playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost);
+            if(index < 4){
+                dialogueText.text = index == -1 ? "" : string.Format("Damage: {0}\nEnergy Cost: {1}",
+                    playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost);
+            } else{
+                dialogueText.text = string.Format("Damage: 0\nEnergy Cost: 0");
+            }
         } else if(nextBattleState == ReplaceMove) {
             dialogueText.text = index == -1 ? dialogueText.text = string.Format("Click a move to\nreplace with\n{0}", newMove.Name) : index <4 ? 
                 string.Format("Damage: {0}\nEnergy Cost: {1}", playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost) : 
@@ -105,6 +115,7 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn() {
         buttons.SetActive(true);
         button[2].SetActive(false);
+        button[4].SetActive(false);
 
         for(int i = 0; i < 4; i++) {
             button[i].GetComponent<Button>().interactable = true;
@@ -121,32 +132,40 @@ public class BattleSystem : MonoBehaviour
 
     void ChooseMove() {
         button[2].SetActive(true);
-
         for(int i = 0; i < 4; i++) {
             buttonText[i].text = playerMoves[i].Base.Name;
             button[i].GetComponent<Button>().interactable = playerMoves[i].Base.EnergyCost > energy ? false : true;
+        }
+        if(!(button[0].GetComponent<Button>().interactable) && !(button[1].GetComponent<Button>().interactable) && !(button[2].GetComponent<Button>().interactable) && !(button[3].GetComponent<Button>().interactable)){
+            button[4].SetActive(true);
+            buttonText[4].text = "Rest";
         }
     }
 
     void Attack(int index, bool isPlayer) {
         buttons.SetActive(false);
         if(isPlayer){
-            int attack = playerMoves[index].Base.Damage;
-            string move = playerMoves[index].Base.Name;
+            if(index == 4){
+                dialogueText.text = string.Format("You are too exhausted to do anything! Wait to recover energy.");
+                nextBattleState = EnemyTurn;
+            } else{
+                int attack = playerMoves[index].Base.Damage;
+                string move = playerMoves[index].Base.Name;
 
-            UpdateEnergy(energy - playerMoves[index].Base.EnergyCost);
+                UpdateEnergy(energy - playerMoves[index].Base.EnergyCost);
 
-            bool isDead = enemyUnit.Unit.TakeDamage(attack);
-            enemyHUD.SetHP(enemyUnit.Unit.HP);
+                bool isDead = enemyUnit.Unit.TakeDamage(attack);
+                enemyHUD.SetHP(enemyUnit.Unit.HP);
 
-            dialogueText.text = string.Format("You used {0} and dealt {1} damage to {2}!", move, attack, enemyUnit.Unit.Base.Name);
-            nextBattleState = (isDead) ? PlayerWon : EnemyTurn;
-            if(nextBattleState == PlayerWon){
-                enemyUnit.EnemyDead(enemy);
-            } 
-            playerUnit.PlayerDealDamage();
-            enemyUnit.EnemyTakeDamage(enemy);
-            if(nextBattleState == PlayerWon) enemyHUD.gameObject.SetActive(false);
+                dialogueText.text = string.Format("You used {0} and dealt {1} damage to {2}!", move, attack, enemyUnit.Unit.Base.Name);
+                nextBattleState = (isDead) ? PlayerWon : EnemyTurn;
+                if(nextBattleState == PlayerWon){
+                    enemyUnit.EnemyDead(enemy);
+                } 
+                enemyUnit.EnemyTakeDamage(enemy);
+                playerUnit.PlayerDealDamage();
+                if(nextBattleState == PlayerWon) enemyHUD.gameObject.SetActive(false);
+            }
         } else{
             int attack = enemyMoves[index].Base.Damage;
             string move = enemyMoves[index].Base.Name;
@@ -156,8 +175,8 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = string.Format("{0} used {1}. You take {2} damage!", enemyUnit.Unit.Base.Name, move, attack);
             nextBattleState = (isDead) ? PlayerLost : PlayerTurn;
-            enemyUnit.EnemyDealDamage(enemy);
             playerUnit.PlayerTakeDamage();
+            enemyUnit.EnemyDealDamage(enemy);
         }
     }
 
@@ -188,12 +207,16 @@ public class BattleSystem : MonoBehaviour
     }
 
     void PlayerWon() {
-        dialogueText.text = string.Format("{0} died. You won the battle!", enemyUnit.Unit.Base.Name);
+        playerUnit.Unit.Base.AddStats();
+        dialogueText.text = string.Format("{0} died. You won the battle! You gained 2 health and increased energy by 1.\nMax Health: {1}, Max Energy: {2}", enemyUnit.Unit.Base.Name, playerUnit.Unit.Base.MaxHP, playerUnit.Unit.Base.Energy);
+        PlayerCollisions.isCollided = false;
         nextBattleState = !AlreadyLearned() ? FindNewMove : EndBattle;
     }
 
     void PlayerLost() {
         dialogueText.text = string.Format("You died...");
+        PlayerCollisions.isCollided = false;
+        playerUnit.Unit.Base.ResetPlayer(playerBaseMoves);
         nextBattleState = EndBattle;
     }
 
@@ -215,6 +238,7 @@ public class BattleSystem : MonoBehaviour
         button[4].SetActive(true);
         for(int i = 0; i < 4; i++) {
             buttonText[i].text = playerMoves[i].Base.Name;
+            button[i].GetComponent<Button>().interactable = true;
         }
         buttonText[4].text = newMove.Name;
     }

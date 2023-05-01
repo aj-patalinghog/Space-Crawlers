@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7888817ad787d04daeea06882a4166d
-      internalID: -396494273
+      spriteID: 1335730719880434cb4b06b30c6f711d
+      internalID: 1603261440
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 592bc6e2544d5034aae1e095ed6ada47
-      internalID: 458255560
+      spriteID: d906356b07ca9894498a12f24bb90fc9
+      internalID: -1355774503
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0b8882a48b1ac846a61f07569c37e7b
-      internalID: -27140438
+      spriteID: 27283a2f85091d941ba1a579cfc79218
+      internalID: 1639126371
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7ac50536f0e3c84398cabd29b57a748
-      internalID: -1219234988
+      spriteID: b8ddcf8520499e34ca410e233c48eff9
+      internalID: 1875107074
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33a889be668f0074086471aeb23cce25
-      internalID: 1486191666
+      spriteID: d91e6edc11f051849b9506bab502fe1e
+      internalID: 2073841382
       vertices: []
       indices: 
       edges: []
@@ -224,8 +224,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b4704efe24851c4593588c6626e519e
-      internalID: -847632755
+      spriteID: b9c3daac214f65f408b403fdb5972478
+      internalID: -557804530
       vertices: []
       indices: 
       edges: []
@@ -241,12 +241,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player_idle_and_slice_0: -396494273
-      player_idle_and_slice_1: 458255560
-      player_idle_and_slice_2: -27140438
-      player_idle_and_slice_3: -1219234988
-      player_idle_and_slice_4: 1486191666
-      player_idle_and_slice_5: -847632755
+      player_idle_and_slice_0: 1603261440
+      player_idle_and_slice_1: -1355774503
+      player_idle_and_slice_2: 1639126371
+      player_idle_and_slice_3: 1875107074
+      player_idle_and_slice_4: 2073841382
+      player_idle_and_slice_5: -557804530
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

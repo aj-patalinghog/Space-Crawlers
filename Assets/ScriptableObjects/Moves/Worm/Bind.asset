@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4efd29095d36214babcb6ee8bb94da9, type: 3}
   m_Name: Bind
   m_EditorClassIdentifier: 
-  attackName: 
-  damage: 0
-  energyCost: 0
+  attackName: Bind
+  damage: 5
+  energyCost: 2

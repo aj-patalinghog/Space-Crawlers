@@ -13,6 +13,8 @@ public class UnitBase : ScriptableObject
 
     [SerializeField] int maxHP;
 
+    [SerializeField] int energy;
+
     [SerializeField] List<LearnableMove> learnableMoves;
 
     [SerializeField] List<AttackMoveBase> movesBase;
@@ -25,6 +27,10 @@ public class UnitBase : ScriptableObject
 
     public int MaxHP {
         get { return maxHP; }
+    }
+
+    public int Energy {
+        get { return energy; }
     }
 
     public Sprite SpriteImage{
@@ -46,13 +52,29 @@ public class UnitBase : ScriptableObject
         movesBase[index] = newMove;
     }
 
+    public void AddStats(){
+        energy += 1;
+        maxHP += 2;
+    }
+
+    public void ResetPlayer(List<AttackMoveBase> baseMoves){
+        energy = 10;
+        maxHP = 25;
+        for(int i=0; i < 4; i++){
+            movesBase[i] = baseMoves[i];
+        }
+    }
+
 }
 
 public enum EnemyDefeated
 {
     NONE,
     OCTOCAT,
-    WORM
+    WORM,
+    CRAB,
+    CORAL,
+    DRAGON
 }
 
 [System.Serializable]
