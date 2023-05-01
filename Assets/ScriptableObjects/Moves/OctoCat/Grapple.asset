@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4efd29095d36214babcb6ee8bb94da9, type: 3}
-  m_Name: Wrap
+  m_Name: Grapple
   m_EditorClassIdentifier: 
-  attackName: Wrap
-  damage: 5
+  attackName: Grapple
+  damage: 4
   energyCost: 2

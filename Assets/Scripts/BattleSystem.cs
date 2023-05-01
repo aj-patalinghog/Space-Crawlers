@@ -13,8 +13,8 @@ public class BattleSystem : MonoBehaviour
     public GameObject buttons;
     public List<GameObject> button;
     public List<Text> buttonText;
-    BattleUnit playerUnit;
-    BattleUnit enemyUnit;
+    PlayerBattleUnit playerUnit;
+    EnemyBattleUnit enemyUnit;
     List<AttackMove> playerMoves;
     List<AttackMove> enemyMoves;
     BattleHUD playerHUD;
@@ -28,13 +28,14 @@ public class BattleSystem : MonoBehaviour
 
         enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
 
-        playerUnit = GameObject.Find("Player Unit").GetComponent<BattleUnit>();
-        playerUnit.SetUpUnit();
-        enemyUnit = GameObject.Find("Enemy Unit").GetComponent<BattleUnit>();
+        playerUnit = GameObject.Find("Player Unit").GetComponent<PlayerBattleUnit>();
+        playerUnit.SetUpPlayerUnit();
+        enemyUnit = GameObject.Find("Enemy Unit").GetComponent<EnemyBattleUnit>();
+        enemyUnit.SelectAnimation(enemy);
         enemyUnit.unitBase = enemies[PlayerCollisions.enemy];
-        enemyUnit.SetUpUnit();
+        enemyUnit.SetUpEnemyUnit();
 
-        newMove = playerUnit.Unit.GetLearnableMove().Base;
+        newMove = playerUnit.Unit.GetLearnableMove(playerUnit.Unit.Base.LearnableMoves);
         playerMoves = playerUnit.Unit.Moves;
         enemyMoves = enemyUnit.Unit.Moves;
 
@@ -82,7 +83,7 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = index == -1 ? "" : string.Format("Damage: {0}\nEnergy Cost: {1}",
                 playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost);
         } else if(nextBattleState == ReplaceMove) {
-            dialogueText.text = index == -1 ? dialogueText.text = string.Format("Click a move to\nreplace with {0}", newMove.Name) : index <4 ? 
+            dialogueText.text = index == -1 ? dialogueText.text = string.Format("Click a move to\nreplace with\n{0}", newMove.Name) : index <4 ? 
                 string.Format("Damage: {0}\nEnergy Cost: {1}", playerMoves[index].Base.Damage, playerMoves[index].Base.EnergyCost) : 
                 string.Format("Damage: {0}\nEnergy Cost: {1}", newMove.Damage, newMove.EnergyCost);
         }
@@ -140,6 +141,12 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = string.Format("You used {0} and dealt {1} damage to {2}!", move, attack, enemyUnit.Unit.Base.Name);
             nextBattleState = (isDead) ? PlayerWon : EnemyTurn;
+            if(nextBattleState == PlayerWon){
+                enemyUnit.EnemyDead(enemy);
+            } 
+            playerUnit.PlayerDealDamage();
+            enemyUnit.EnemyTakeDamage(enemy);
+            if(nextBattleState == PlayerWon) enemyHUD.gameObject.SetActive(false);
         } else{
             int attack = enemyMoves[index].Base.Damage;
             string move = enemyMoves[index].Base.Name;
@@ -149,6 +156,8 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = string.Format("{0} used {1}. You take {2} damage!", enemyUnit.Unit.Base.Name, move, attack);
             nextBattleState = (isDead) ? PlayerLost : PlayerTurn;
+            enemyUnit.EnemyDealDamage(enemy);
+            playerUnit.PlayerTakeDamage();
         }
     }
 
@@ -190,7 +199,7 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle() {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
-        StartCoroutine(sceneManager.UnloadScene("Battle"));
+        sceneManager.TransitionToLevel();
     }
 
     // Learnable Move Mechanics
@@ -201,7 +210,7 @@ public class BattleSystem : MonoBehaviour
     }
 
     void ReplaceMove() {
-        dialogueText.text = string.Format("Click a move to\nreplace with {0}", newMove.Name);
+        dialogueText.text = string.Format("Click a move to\nreplace with\n{0}", newMove.Name);
         buttons.SetActive(true);
         button[4].SetActive(true);
         for(int i = 0; i < 4; i++) {

@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Level0.unity.meta
 guid: fa8ae1cb7d7d8a34194b8b42934e321a
+========
+guid: fc009203a3a0e9f46b56c2daca2d764f
+folderAsset: yes
+>>>>>>>> battle:Assets/Animations/Battle.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

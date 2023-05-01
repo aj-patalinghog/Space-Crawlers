@@ -17,6 +17,8 @@ public class UnitBase : ScriptableObject
 
     [SerializeField] List<AttackMoveBase> movesBase;
 
+    private void OnEnable() => hideFlags = HideFlags.DontUnloadUnusedAsset;
+
     public string Name {
         get { return unitName; }
     }

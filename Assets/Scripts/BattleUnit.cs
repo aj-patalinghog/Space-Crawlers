@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class BattleUnit : MonoBehaviour
 {
     public UnitBase unitBase;
+    private Animator animator;
 
     public Unit Unit { get; set; }
+
 
     public void SetUpUnit()
     {
