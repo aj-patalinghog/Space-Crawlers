@@ -199,7 +199,7 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle() {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
-        sceneManager.TransitionToLevel();
+        StartCoroutine(sceneManager.UnloadScene("Battle"));
     }
 
     // Learnable Move Mechanics

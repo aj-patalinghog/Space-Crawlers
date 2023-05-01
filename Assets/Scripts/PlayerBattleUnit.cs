@@ -8,7 +8,7 @@ public class PlayerBattleUnit : MonoBehaviour
     public UnitBase unitBase;
     private Animator animator;
     
-    private bool isDealDamage = false;
+    // private bool isDealDamage = false;
 
     public Unit Unit { get; set; }
 

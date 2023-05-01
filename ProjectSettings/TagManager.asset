@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Octocat
   - Worm
+  - Coral
+  - Crab
+  - Finalboss
   layers:
   - Default
   - TransparentFX
@@ -42,4 +45,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3976687027
+    locked: 0
+  - name: Ground
+    uniqueID: 997566457
+    locked: 0
+  - name: vehicle
+    uniqueID: 1564895523
+    locked: 0
+  - name: Entity
+    uniqueID: 381197923
     locked: 0
