@@ -9,13 +9,20 @@ public class PlayerCollisions : MonoBehaviour
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
 
         if(other.gameObject.tag == "Octocat") {
-            sceneManager.TransitionToBattle();
+            StartCoroutine(sceneManager.LoadScene("Battle"));
+            StartCoroutine(DestroyEnemy(other.gameObject));
             enemy = 0;
         }
 
         if(other.gameObject.tag == "Worm") {
-            sceneManager.TransitionToBattle();
+            StartCoroutine(sceneManager.LoadScene("Battle"));
+            StartCoroutine(DestroyEnemy(other.gameObject));
             enemy = 1;
         }
+    }
+
+    IEnumerator DestroyEnemy(GameObject enemy) {
+        yield return new WaitForSeconds(2f);
+        Destroy(enemy.gameObject);
     }
 }
