@@ -600,28 +600,28 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 26.083334
+  - time: 25.933332
     functionName: Dialog
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 29.583334
+  - time: 29.433332
     functionName: Dialog
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 32.583332
+  - time: 32.433334
     functionName: Dialog
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 35.583332
+  - time: 35.416668
     functionName: Dialog
     data: 
     objectReferenceParameter: {fileID: 0}

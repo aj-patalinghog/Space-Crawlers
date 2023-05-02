@@ -43,6 +43,10 @@ public class PlayerCollisions : MonoBehaviour
                 enemy = 4;
                 isCollided = true;
             }
+
+            if(other.gameObject.tag == "Portal"){
+                StartCoroutine(sceneManager.LoadScene("Win"));
+            }
         }
     }
 

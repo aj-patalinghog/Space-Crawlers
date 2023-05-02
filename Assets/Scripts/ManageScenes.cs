@@ -34,6 +34,10 @@ public class ManageScenes : MonoBehaviour
         StartCoroutine(ReplaceScene());
     }
 
+    public void EnterMenu(){
+        StartCoroutine(LoadScene("MainMenu"));
+    }
+
     public IEnumerator ReplaceScene() {
         Canvas menu = FindObjectOfType<Canvas>();
         AudioListener audio = FindObjectOfType<AudioListener>();
