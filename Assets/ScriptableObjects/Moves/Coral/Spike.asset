@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Spike
   damage: 6
-  energyCost: 4
+  energyCost: 0

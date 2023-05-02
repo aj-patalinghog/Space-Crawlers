@@ -7,12 +7,16 @@ public class EnemyBattleUnit : MonoBehaviour
 {
     public UnitBase unitBase;
     private Animator animator;
+    AudioSource audio;
     public GameObject planet;
+
+    public AudioClip[] audioClips;
 
     public Unit Unit { get; set; }
 
     void Start(){
         animator = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
     }
 
     public void SelectAnimation(EnemyDefeated enemy){
@@ -97,6 +101,34 @@ public class EnemyBattleUnit : MonoBehaviour
                                      break;
 
         }
+    }
+
+    public void OctoAttackSound(){
+        audio.Play();
+    }
+
+    public void WormAttackSound(){
+        audio.PlayOneShot(audioClips[0]);
+    }
+
+    public void CrabAttackSound(){
+        audio.PlayOneShot(audioClips[1]);
+    }
+
+    public void CoralAttackSound(){
+        audio.PlayOneShot(audioClips[2]);
+    }
+
+    public void DragonPlanetAttackSound(){
+        audio.PlayOneShot(audioClips[3]);
+    }
+
+    public void DragonEarthAttackSound(){
+        audio.PlayOneShot(audioClips[4]);
+    }
+
+    public void DragonAttackSound(){
+        audio.PlayOneShot(audioClips[5]);
     }
 
     public void SetUpEnemyUnit()

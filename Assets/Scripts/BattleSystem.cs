@@ -7,6 +7,10 @@ using System;
 public class BattleSystem : MonoBehaviour
 {
     public Action nextBattleState;
+    public AudioSource audio1;
+    public AudioSource audio2;
+    public AudioSource audio3;
+    public AudioSource audio4;
     Text dialogueText;
     Text energyText;
     public int energy;
@@ -26,11 +30,19 @@ public class BattleSystem : MonoBehaviour
     public static bool isPlanetAttack;
     public static bool isEarthAttack;
 
+    public AudioClip[] audioClips;
+
     void Start() {
         Cursor.lockState = CursorLockMode.None;
 
         enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
-
+        if(enemy == EnemyDefeated.DRAGON){
+            audio3.Play();
+        } else if (enemy == EnemyDefeated.CORAL || enemy == EnemyDefeated.CRAB){
+            audio1.Play();
+        } else{
+            audio4.Play();
+        }
         playerUnit = GameObject.Find("Player Unit").GetComponent<PlayerBattleUnit>();
         playerUnit.SetUpPlayerUnit();
         enemyUnit = GameObject.Find("Enemy Unit").GetComponent<EnemyBattleUnit>();
@@ -68,18 +80,21 @@ public class BattleSystem : MonoBehaviour
         if(nextBattleState == PlayerTurn) {
             nextBattleState = ChooseMove;
             switch(index) {
-                case 0: ChooseMove(); break;
-                case 1: Heal();       break;
-                case 3: Run();        break;
+                case 0: ChooseMove(); audio2.PlayOneShot(audioClips[0]); break;
+                case 1: Heal(); audio2.PlayOneShot(audioClips[1]); break;
+                case 3: Run(); audio2.PlayOneShot(audioClips[0]); break;
             }
         } else if(nextBattleState == ChooseMove) {
+            audio2.Play();
             Attack(index, true);
         } else if(nextBattleState == ReplaceMove && index < 4) {
+            audio2.PlayOneShot(audioClips[0]);
             buttons.SetActive(false);
             dialogueText.text = string.Format("You replaced {0} with {1}!", playerMoves[index].Base.Name, newMove.Name);
             playerUnit.Unit.Base.AddMove(newMove, index);
             nextBattleState = EndBattle;
         } else if(nextBattleState == ReplaceMove && index == 4) {
+            audio2.PlayOneShot(audioClips[0]);
             buttons.SetActive(false);
             dialogueText.text = string.Format("You choose to not take the new ability: {0}", newMove.Name);
             nextBattleState = EndBattle;
@@ -179,6 +194,9 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = string.Format("{0} used {1}. You take {2} damage!", enemyUnit.Unit.Base.Name, move, attack);
             nextBattleState = (isDead) ? PlayerLost : PlayerTurn;
+            if(nextBattleState == PlayerLost){
+                    playerUnit.PlayerDead();
+            } 
             playerUnit.PlayerTakeDamage();
             enemyUnit.EnemyDealDamage(enemy);
         }
@@ -214,7 +232,6 @@ public class BattleSystem : MonoBehaviour
         playerUnit.Unit.Base.AddStats();
         if (UnitBase.enemiesDefeated == 2) dialogueText.text = string.Format("{0} died. You won the battle! You gained 2 health and increased energy by 1.\nMax Health: {1}, Max Energy: {2}", enemyUnit.Unit.Base.Name, playerUnit.Unit.Base.MaxHP, playerUnit.Unit.Base.Energy);
         else dialogueText.text = string.Format("{0} died. You won the battle! You gained 2 health.\nMax Health: {1}, Max Energy: {2}", enemyUnit.Unit.Base.Name, playerUnit.Unit.Base.MaxHP, playerUnit.Unit.Base.Energy);
-        PlayerCollisions.isCollided = false;
         nextBattleState = !AlreadyLearned() ? FindNewMove : EndBattle;
     }
 
@@ -226,6 +243,7 @@ public class BattleSystem : MonoBehaviour
     }
 
     void EndBattle() {
+        PlayerCollisions.isCollided = false;
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
         StartCoroutine(sceneManager.UnloadScene("Battle"));
     }

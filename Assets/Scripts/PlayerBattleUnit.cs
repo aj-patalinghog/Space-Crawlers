@@ -8,10 +8,14 @@ public class PlayerBattleUnit : MonoBehaviour
     public UnitBase unitBase;
     private Animator animator;
 
+    AudioSource audio;
+
     public Unit Unit { get; set; }
 
     void Start(){
         animator = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
+        animator.SetBool("PlayerDead", false);
     }
 
     public void PlayerDealDamage(){
@@ -20,6 +24,14 @@ public class PlayerBattleUnit : MonoBehaviour
 
     public void PlayerTakeDamage(){
         animator.SetTrigger("TakeDamage");
+    }
+
+    public void PlayerDead(){
+        animator.SetBool("PlayerDead", true);
+    }
+
+    public void AttackSound(){
+        audio.Play();
     }
     
     public void SetUpPlayerUnit()

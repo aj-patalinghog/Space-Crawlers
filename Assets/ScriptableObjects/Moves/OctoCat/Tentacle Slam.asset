@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Tentacle Slam
   m_EditorClassIdentifier: 
   attackName: Tentacle Slam
-  damage: 8
-  energyCost: 5
+  damage: 7
+  energyCost: 4
