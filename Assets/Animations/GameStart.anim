@@ -52,8 +52,8 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 37.083332
-    functionName: LoadLevel1
-    data: 
+    functionName: LoadSingle
+    data: Level1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

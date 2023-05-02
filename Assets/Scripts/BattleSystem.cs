@@ -239,13 +239,24 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = string.Format("You died...");
         PlayerCollisions.isCollided = false;
         playerUnit.Unit.Base.ResetPlayer(playerBaseMoves);
-        nextBattleState = EndBattle;
+        nextBattleState = GameOver;
+    }
+
+    void GameOver() {
+        PlayerCollisions.isCollided = false;
+        ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
+       sceneManager.LoadSingle("GameOver");
     }
 
     void EndBattle() {
         PlayerCollisions.isCollided = false;
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
         StartCoroutine(sceneManager.UnloadScene("Battle"));
+        enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
+        if (enemy == EnemyDefeated.DRAGON)
+        {
+            sceneManager.LoadScene("Ending");
+        }
     }
 
     // Learnable Move Mechanics

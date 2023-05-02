@@ -25,13 +25,20 @@ public class ManageScenes : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SceneManager.UnloadSceneAsync(scene);
         FindObjectOfType<AudioListener>().enabled = true;
-        yield return new WaitForSeconds(3f);
+        Invoke("FinishUnloading", 3f);
+    }
+
+    void FinishUnloading() {
         audio.Play();
         SceneManager.UnloadSceneAsync("Transition");
     }
 
     public void ExitMenu() {
         StartCoroutine(ReplaceScene());
+    }
+
+    public void EnterMenu(){
+        StartCoroutine(LoadScene("MainMenu"));
     }
 
     public IEnumerator ReplaceScene() {
@@ -47,7 +54,7 @@ public class ManageScenes : MonoBehaviour
         SceneManager.UnloadSceneAsync("MainMenu");
     }
 
-    public void LoadLevel1() {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+    public void LoadSingle(string scene) {
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - Crab
   - Finalboss
   - Dragon
+  - Portal
   layers:
   - Default
   - TransparentFX
