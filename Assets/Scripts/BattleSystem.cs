@@ -255,6 +255,7 @@ public class BattleSystem : MonoBehaviour
         enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
         if (enemy == EnemyDefeated.DRAGON)
         {
+            playerUnit.Unit.Base.ResetPlayer(playerBaseMoves);
             sceneManager.LoadScene("Ending");
         }
     }
