@@ -46,6 +46,7 @@ public class PlayerCollisions : MonoBehaviour
 
             if(other.gameObject.tag == "Portal"){
                 StartCoroutine(sceneManager.LoadScene("Win"));
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

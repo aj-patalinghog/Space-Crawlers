@@ -239,7 +239,13 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = string.Format("You died...");
         PlayerCollisions.isCollided = false;
         playerUnit.Unit.Base.ResetPlayer(playerBaseMoves);
-        nextBattleState = EndBattle;
+        nextBattleState = GameOver;
+    }
+
+    void GameOver() {
+        PlayerCollisions.isCollided = false;
+        ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
+       sceneManager.LoadSingle("GameOver");
     }
 
     void EndBattle() {
