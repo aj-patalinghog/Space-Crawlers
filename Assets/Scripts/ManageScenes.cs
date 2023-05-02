@@ -6,8 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ManageScenes : MonoBehaviour
 {
+    AudioSource audio;
+    void Start(){
+        audio = GetComponent<AudioSource>();
+    }
     public IEnumerator LoadScene(string scene) {
         SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
+        audio.Stop();
         yield return new WaitForSeconds(1f);
         FindObjectOfType<AudioListener>().enabled = false;
         SceneManager.LoadScene(scene, LoadSceneMode.Additive);
@@ -21,6 +26,7 @@ public class ManageScenes : MonoBehaviour
         SceneManager.UnloadSceneAsync(scene);
         FindObjectOfType<AudioListener>().enabled = true;
         yield return new WaitForSeconds(3f);
+        audio.Play();
         SceneManager.UnloadSceneAsync("Transition");
     }
 
