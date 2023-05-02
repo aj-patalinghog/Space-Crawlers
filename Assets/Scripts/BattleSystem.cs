@@ -205,10 +205,10 @@ public class BattleSystem : MonoBehaviour
     void Heal() {
         buttons.SetActive(false);
 
-        playerUnit.Unit.Heal(playerUnit.Unit.Base.MaxHP/5);
+        playerUnit.Unit.Heal(playerUnit.Unit.Base.MaxHP/4);
         playerHUD.SetHP(playerUnit.Unit.HP);
 
-        dialogueText.text = string.Format("You healed {0} HP!", playerUnit.Unit.Base.MaxHP/5);
+        dialogueText.text = string.Format("You healed {0} HP!", playerUnit.Unit.Base.MaxHP/4);
         nextBattleState = EnemyTurn;
     }
 

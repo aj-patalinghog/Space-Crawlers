@@ -758,7 +758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You found an abandoned spaceship and eventually made it back home.
+  m_Text: You jumped through a random portal and  made it back home.
 --- !u!222 &916093333
 CanvasRenderer:
   m_ObjectHideFlags: 0

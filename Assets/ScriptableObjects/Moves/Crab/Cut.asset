@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cut
   m_EditorClassIdentifier: 
   attackName: Cut
-  damage: 7
+  damage: 8
   energyCost: 2

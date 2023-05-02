@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Poision Jab
   damage: 9
-  energyCost: 4
+  energyCost: 3
