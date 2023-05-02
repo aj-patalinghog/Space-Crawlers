@@ -6,10 +6,9 @@ public class PlayerCollisions : MonoBehaviour
 {
     public static int enemy;
     public static bool isCollided = false;
-
     void OnCollisionEnter2D(Collision2D other) {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
-        if (!isCollided){
+        if(!isCollided){
             if(other.gameObject.tag == "Octocat") {
                 StartCoroutine(sceneManager.LoadScene("Battle"));
                 StartCoroutine(DestroyEnemy(other.gameObject));
