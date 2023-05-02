@@ -252,6 +252,11 @@ public class BattleSystem : MonoBehaviour
         PlayerCollisions.isCollided = false;
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
         StartCoroutine(sceneManager.UnloadScene("Battle"));
+        enemy = (EnemyDefeated)(PlayerCollisions.enemy + 1);
+        if (enemy == EnemyDefeated.DRAGON)
+        {
+            sceneManager.LoadScene("Ending");
+        }
     }
 
     // Learnable Move Mechanics
