@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Coral
   spriteImage: {fileID: -1815233846, guid: 615545165e3303e4ebb00afba8749e4e, type: 3}
-  maxHP: 25
+  maxHP: 35
   energy: 0
   learnableMoves: []
   movesBase:

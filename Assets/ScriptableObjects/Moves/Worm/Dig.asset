@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dig
   m_EditorClassIdentifier: 
   attackName: Dig
-  damage: 7
-  energyCost: 2
+  damage: 8
+  energyCost: 4

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Meteor Shower
   m_EditorClassIdentifier: 
   attackName: Meteor Shower
-  damage: 8
+  damage: 12
   energyCost: 4

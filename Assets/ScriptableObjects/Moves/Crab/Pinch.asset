@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Pinch
   m_EditorClassIdentifier: 
   attackName: Pinch
-  damage: 4
+  damage: 7
   energyCost: 1

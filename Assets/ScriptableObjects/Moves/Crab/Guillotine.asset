@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Guillotine
   m_EditorClassIdentifier: 
   attackName: Guillotine
-  damage: 10
-  energyCost: 5
+  damage: 11
+  energyCost: 6

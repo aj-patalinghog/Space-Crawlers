@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Slash
   m_EditorClassIdentifier: 
   attackName: Slash
-  damage: 7
-  energyCost: 4
+  damage: 6
+  energyCost: 3

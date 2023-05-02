@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Earthquake
   m_EditorClassIdentifier: 
   attackName: Earthquake
-  damage: 7
+  damage: 11
   energyCost: 4

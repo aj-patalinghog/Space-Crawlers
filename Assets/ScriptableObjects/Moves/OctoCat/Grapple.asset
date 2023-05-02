@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Grapple
   m_EditorClassIdentifier: 
   attackName: Grapple
-  damage: 4
+  damage: 5
   energyCost: 2

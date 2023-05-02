@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Bind
   damage: 5
-  energyCost: 2
+  energyCost: 1

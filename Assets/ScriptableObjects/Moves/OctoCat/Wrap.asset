@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wrap
   m_EditorClassIdentifier: 
   attackName: Wrap
-  damage: 5
-  energyCost: 2
+  damage: 4
+  energyCost: 1

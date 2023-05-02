@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Player
   spriteImage: {fileID: -1355774503, guid: fd8c5709a23fbcd41afe6c2beed0b79c, type: 3}
-  maxHP: 30
-  energy: 10
+  maxHP: 23
+  energy: 8
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 6bbdb844d61998645ba3ba2dd050b9e8, type: 2}
     enemy: 1
@@ -70,3 +70,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2c9be384e45d52a448abc05a1d04839e, type: 2}
   - {fileID: 11400000, guid: ce001f0e67af96f46a2e4222fee38992, type: 2}
   - {fileID: 11400000, guid: 8745c0663e6b0d94182eb9bb458f8abd, type: 2}
+  enemiesDefeated: 0

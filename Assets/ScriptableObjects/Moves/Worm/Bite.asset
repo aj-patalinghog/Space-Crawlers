@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bite
   m_EditorClassIdentifier: 
   attackName: Bite
-  damage: 4
-  energyCost: 1
+  damage: 6
+  energyCost: 2

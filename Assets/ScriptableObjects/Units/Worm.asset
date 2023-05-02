@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Worm
   spriteImage: {fileID: -1306250937, guid: f3638e9f1337c4b3b8297543bddbddf4, type: 3}
-  maxHP: 25
+  maxHP: 27
   energy: 0
   learnableMoves: []
   movesBase:

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dragon Beam
   m_EditorClassIdentifier: 
   attackName: Dragon Beam
-  damage: 8
+  damage: 9
   energyCost: 2

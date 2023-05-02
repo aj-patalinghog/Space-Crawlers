@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Planet Throw
   m_EditorClassIdentifier: 
   attackName: Planet Throw
-  damage: 10
+  damage: 13
   energyCost: 5

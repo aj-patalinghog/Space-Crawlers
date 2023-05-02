@@ -49,7 +49,7 @@ public class BattleSystem : MonoBehaviour
         enemyHUD.SetHUD(enemyUnit.Unit);
 
         energyText = playerHUD.transform.GetChild(2).gameObject.GetComponent<Text>();
-        UpdateEnergy(10);
+        UpdateEnergy(playerUnit.Unit.Base.Energy);
 
         buttons.SetActive(false);
         for(int i = 0; i < buttons.transform.childCount; i++) {
@@ -127,7 +127,7 @@ public class BattleSystem : MonoBehaviour
         buttonText[1].text = "Heal";
         buttonText[3].text = "Run";
 
-        if(energy < 10) UpdateEnergy(energy + 1);
+        if(energy < playerUnit.Unit.Base.Energy) UpdateEnergy(energy + 1);
 
         dialogueText.text = "Choose an action: ";
     }
@@ -212,7 +212,8 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerWon() {
         playerUnit.Unit.Base.AddStats();
-        dialogueText.text = string.Format("{0} died. You won the battle! You gained 2 health and increased energy by 1.\nMax Health: {1}, Max Energy: {2}", enemyUnit.Unit.Base.Name, playerUnit.Unit.Base.MaxHP, playerUnit.Unit.Base.Energy);
+        if (UnitBase.enemiesDefeated == 2) dialogueText.text = string.Format("{0} died. You won the battle! You gained 2 health and increased energy by 1.\nMax Health: {1}, Max Energy: {2}", enemyUnit.Unit.Base.Name, playerUnit.Unit.Base.MaxHP, playerUnit.Unit.Base.Energy);
+        else dialogueText.text = string.Format("{0} died. You won the battle! You gained 2 health.\nMax Health: {1}, Max Energy: {2}", enemyUnit.Unit.Base.Name, playerUnit.Unit.Base.MaxHP, playerUnit.Unit.Base.Energy);
         PlayerCollisions.isCollided = false;
         nextBattleState = !AlreadyLearned() ? FindNewMove : EndBattle;
     }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stab
   m_EditorClassIdentifier: 
   attackName: Stab
-  damage: 6
-  energyCost: 3
+  damage: 5
+  energyCost: 2

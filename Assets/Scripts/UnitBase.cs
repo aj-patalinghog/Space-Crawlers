@@ -19,6 +19,8 @@ public class UnitBase : ScriptableObject
 
     [SerializeField] List<AttackMoveBase> movesBase;
 
+    public static int enemiesDefeated;
+
     private void OnEnable() => hideFlags = HideFlags.DontUnloadUnusedAsset;
 
     public string Name {
@@ -53,13 +55,17 @@ public class UnitBase : ScriptableObject
     }
 
     public void AddStats(){
-        energy += 1;
+        enemiesDefeated += 1;
+        if(enemiesDefeated == 2){
+            energy += 1;
+            enemiesDefeated = 0;
+        } 
         maxHP += 2;
     }
 
     public void ResetPlayer(List<AttackMoveBase> baseMoves){
-        energy = 10;
-        maxHP = 25;
+        energy = 8;
+        maxHP = 23;
         for(int i=0; i < 4; i++){
             movesBase[i] = baseMoves[i];
         }

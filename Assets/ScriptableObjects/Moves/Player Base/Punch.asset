@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Punch
   m_EditorClassIdentifier: 
   attackName: Punch
-  damage: 3
-  energyCost: 1
+  damage: 2
+  energyCost: 0
