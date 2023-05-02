@@ -6,10 +6,13 @@ public class PlayerCollisions : MonoBehaviour
 {
     public static int enemy;
     public static bool isCollided = false;
+
     void OnCollisionEnter2D(Collision2D other) {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
-        if(!isCollided){
+        AudioSource BGmusic = GameObject.FindObjectOfType(typeof(AudioSource)) as AudioSource;
+        if (!isCollided){
             if(other.gameObject.tag == "Octocat") {
+                BGmusic.Pause();
                 StartCoroutine(sceneManager.LoadScene("Battle"));
                 StartCoroutine(DestroyEnemy(other.gameObject));
                 enemy = 0;

@@ -227,6 +227,8 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle() {
         ManageScenes sceneManager = GameObject.FindObjectOfType(typeof(ManageScenes)) as ManageScenes;
+        AudioSource BGmusic = GameObject.FindObjectOfType(typeof(AudioSource)) as AudioSource;
+        BGmusic.UnPause();
         StartCoroutine(sceneManager.UnloadScene("Battle"));
     }
 
